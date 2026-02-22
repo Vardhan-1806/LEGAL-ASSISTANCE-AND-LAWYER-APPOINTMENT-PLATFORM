@@ -1,0 +1,1 @@
+// Generates short summary useful for lawyer quick view

@@ -1,0 +1,2 @@
+/* Converts text to vectors
+    Used for semantic search */

@@ -1,0 +1,11 @@
+{
+  "name": "legal-assistance-and-lawyer-appointment-platform",
+  "version": "1.0.0",
+  "description": "Web platform for citizens to get legal help",
+
+  "projectInfo": "Lawyer sample data",
+
+  "scripts": {
+    "start": "node server.js"
+  }
+}

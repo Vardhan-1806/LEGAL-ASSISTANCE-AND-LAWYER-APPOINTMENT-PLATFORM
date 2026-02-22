@@ -1,0 +1,2 @@
+/* Chatbot UI
+Sending user queries to backend  Ai */

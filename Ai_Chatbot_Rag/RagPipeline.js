@@ -1,0 +1,3 @@
+/* Retrieves legal info
+    Combines with LLM
+    Generates answer */

@@ -1,0 +1,1 @@
+// Structure of case details

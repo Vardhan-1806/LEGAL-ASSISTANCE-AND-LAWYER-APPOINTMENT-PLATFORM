@@ -1,0 +1,1 @@
+// Handles server errors,sends proper error responses

@@ -1,0 +1,1 @@
+// Send query to RAG pipeline return legal answer
