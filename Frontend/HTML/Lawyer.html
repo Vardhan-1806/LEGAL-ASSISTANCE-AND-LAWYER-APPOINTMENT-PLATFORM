@@ -1,3 +1,269 @@
 <!-- View assigned cases
 Update case progress
 Manage appointments -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEXASSIST | Lawyer Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= SIDEBAR ================= -->
+    <div class="sidebar">
+        <h2 id="div">⚖️lexAssist</h2>
+        <ul>
+            <li onclick="showSection('dashboard')">Dashboard</li>
+            <li onclick="showSection('cases')">My Cases</li>
+            <li onclick="showSection('calendar')">Case Calendar</li>
+            <li onclick="showSection('appointments')">Consultations</li>
+            <li onclick="showSection('messages')">Client Messages</li>
+            <li onclick="showSection('profile')">My Profile</li>
+        </ul>
+    </div>
+
+    <!-- ================= MAIN ================= -->
+    <div class="main">
+        <input type="text" id="caseSearch" placeholder="Search by Case ID / Client Name"
+            onkeyup="searchCases()"
+            style="width:100%;padding:10px;margin-bottom:12px;border-radius:6px;border:1px solid #ccc;">
+        <br>
+
+        <!-- ================= TOP BAR ================= -->
+        <div class="topbar">
+            <div>
+                <h2><b>Adv. Kumar</b></h2>
+            </div>
+            <div class="right">
+                <button onclick="toggleTheme()">🌙</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- ================= DASHBOARD ================= -->
+        <section id="dashboard" class="section active">
+            <div class="datetime" id="datetime"></div>
+
+            <div class="cards">
+                <div class="card">Ongoing Cases: <b>5</b></div>
+                <div class="card">Upcoming Hearings: <b>3</b></div>
+                <div class="card">Pending Consultations: <b>2</b></div>
+                <div class="card">Unread Messages: <b>4</b></div>
+            </div>
+        </section>
+
+        <!-- ================= CASES ================= -->
+        <section id="cases" class="section">
+            <h1>My Cases</h1>
+            <br>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Case ID</th>
+                        <th>Client</th>
+                        <th>Status</th>
+                        <th>Next Hearing</th>
+                    </tr>
+                    <tr>
+                        <td>C101</td>
+                        <td>Ravi</td>
+                        <td>Ongoing</td>
+                        <td>14 Mar 2026</td>
+                    </tr>
+                    <tr>
+                        <td>C102</td>
+                        <td>Anita</td>
+                        <td>Upcoming</td>
+                        <td>22 Mar 2026</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= CALENDAR ================= -->
+        <section id="calendar" class="section">
+            <br>
+            <h1>Case Calendar – 2026</h1>
+
+            <div class="weekdays">
+                <div>Sun</div><div>Mon</div><div>Tue</div>
+                <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+
+            <div class="calendar">
+                <div class="day low" data-tooltip="Ongoing case">10</div>
+                <div class="day medium" data-tooltip="Upcoming hearing">14</div>
+                <div class="day high" data-tooltip="Multiple hearings">22</div>
+            </div>
+        </section>
+
+        <!-- ================= CONSULTATIONS ================= -->
+        <section id="appointments" class="section">
+            <br>
+            <h1>Booked Consultations</h1>
+
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Ravi</td>
+                        <td>12 Mar 2026</td>
+                        <td>10:00 AM</td>
+                        <td id="status1">Pending</td>
+                        <td>
+                            <button onclick="acceptConsultation(1)">Accept</button>
+                            <button onclick="rejectConsultation(1)">Reject</button>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Anita</td>
+                        <td>13 Mar 2026</td>
+                        <td>2:30 PM</td>
+                        <td id="status2">Pending</td>
+                        <td>
+                            <button onclick="acceptConsultation(2)">Accept</button>
+                            <button onclick="rejectConsultation(2)">Reject</button>
+                        </td>
+                    </tr>
+
+                </table>
+                <br>
+                <table id="caseTable">
+                <tr>
+                    <th>Case ID</th>
+                    <th>Client</th>
+                    <th>Status</th>
+                    <th>Update Status</th>
+                    <th>Timeline</th>
+                </tr>
+
+                <tr>
+                    <td>C101</td>
+                    <td>Ravi</td>
+                    <td id="status-C101">Ongoing</td>
+                <td>
+                    <select onchange="updateCaseStatus('C101', this.value)">
+                        <option value="">Select</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Hearing Scheduled">Hearing Scheduled</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </td>
+                <td>
+                    <button onclick="viewTimeline('C101')">View</button>
+                    <button onclick="addTimeline('C101')">Add</button>
+                </td>
+                </tr>
+
+                <tr>
+                <td>C102</td>
+                <td>Anita</td>
+                <td id="status-C102">Upcoming</td>
+                <td>
+                <select onchange="updateCaseStatus('C102', this.value)">
+                    <option value="">Select</option>
+                    <option value="Upcoming">Upcoming</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                </td>
+                <td>
+                    <button onclick="viewTimeline('C102')">View</button>
+                    <button onclick="addTimeline('C102')">Add</button>
+                </td>
+                </tr>
+            </table>
+            </div>
+        </section>
+
+        <!-- ================= MESSAGES ================= -->
+        <section id="messages" class="section">
+            <br>
+            <h1>Client Messages</h1>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Client</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Ravi</td>
+                        <td>Any update on hearing?</td>
+                        <td><button>Reply</button></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================= PROFILE ================= -->
+        <section id="profile" class="section">
+            <br>
+            <h1>My Profile</h1>
+            <br>
+            <div class="card">
+                <img class ="photo"src="https://wallpapers.com/images/featured/default-png-0q6opbat0cr7deg8.jpg" >
+                <div>
+                    <p><b>Name:</b> Advocate Kumar</p>
+                    <p><b>Email:</b> kumar@lexassist.com</p>
+                    <p><b>Specialization:</b> Criminal Law</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top:20px;">Merits & Achievements</h2>
+            <ul style="margin-top:10px;">
+                ✔ 10+ years of legal experience.<br>
+                ✔ 95% case success rate.<br>
+                ✔ Awarded Best Criminal Lawyer – 2024<br>
+                ✔ Handled 300+ cases<br>
+            </ul>
+        </section>
+
+    </div>
+</div>
+
+<script>
+function showSection(id){
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function toggleTheme(){
+    document.body.classList.toggle("dark-mode");
+}
+
+function logout(){
+    window.location.href = "lawyer-login.html";
+}
+
+function updateDateTime(){
+    document.getElementById("datetime").innerText =
+        new Date().toLocaleDateString() + " | " +
+        new Date().toLocaleTimeString();
+}
+setInterval(updateDateTime,1000);
+updateDateTime();
+
+function acceptConsultation(id){
+    document.getElementById("status"+id).innerText = "Accepted";
+}
+
+function rejectConsultation(id){
+    document.getElementById("status"+id).innerText = "Rejected";
+}
+</script>
+
+</body>
+</html>
