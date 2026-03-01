@@ -1,3 +1,121 @@
 <!-- Mannage users and lawyers
 Monitor cases
 System control -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LexAssist Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="sidebar" id="sidebar">
+        <h2>⚖️ LexAssist</h2>
+        <ul>
+            <li onclick="showSection('dashboard')">Dashboard</li>
+            <li onclick="showSection('citizens')">Manage Citizens</li>
+            <li onclick="showSection('lawyers')">Verify Lawyers</li>
+            <li onclick="showSection('cases')">Manage Cases</li>
+            <li onclick="openCalendar()">📅 Case Calendar</li>
+            <li onclick="showSection('appointments')">Appointments</li>
+            <li onclick="showSection('logs')">Chatbot Logs</li>
+            <li onclick="showSection('complaints')">Complaints</li>
+            <li onclick="showSection('faq')">FAQ Knowledge</li>
+        </ul>
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+            <h2><b>Admin : Vardhan_114_</b></h2>
+            <div class="right">
+                <button onclick="toggleTheme()">🌙</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <section id="dashboard" class="section active"><br>
+            <div id="datetime" class="datetime"></div><br>
+            <h1>Admin Dashboard</h1><br>
+            <div class="cards">
+                <div class="card">Citizens: <span id="citizenCount"></span></div>
+                <div class="card">Lawyers: <span id="lawyerCount"></span></div>
+                <div class="card">Cases: <span id="caseCount"></span></div>
+                <div class="card">Appointments: <span id="appointmentCount"></span></div>
+            </div>
+        </section>
+
+        <section id="calendarSection" class="section">
+            <h1>Case Calendar</h1><br>
+            <div class="calendar-controls">
+                <select id="monthSelect" onchange="generateCalendar()"></select>
+                <select id="yearSelect" onchange="generateCalendar()"></select>
+            </div>
+
+            <div class="weekdays">
+                <div>Sun</div><div>Mon</div><div>Tue</div>
+                <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+
+            <div id="calendarGrid" class="calendar"></div>
+        </section>
+
+        <section id="citizens" class="section">
+            <h1>Manage Citizens</h1><br>
+            <div class="table-wrapper"><table id="citizenTable"></table></div>
+        </section>
+
+        <section id="lawyers" class="section">
+            <h1>Verify Lawyers</h1><br>
+            <div class="table-wrapper"><table id="lawyerTable"></table></div>
+        </section>
+
+        <section id="cases" class="section">
+            <h1>Manage Cases</h1><br>
+            <div class="table-wrapper"><table id="caseTable"></table></div>
+        </section>
+
+        <section id="appointments" class="section">
+            <h1>Appointments</h1><br>
+            <ul id="appointmentList"></ul>
+        </section>
+
+        <section id="logs" class="section">
+            <h1>Chatbot Logs</h1><br>
+            <ul id="logList"></ul>
+        </section>
+
+        <section id="complaints" class="section">
+            <h1>Complaints</h1><br>
+            <ul id="complaintList"></ul>
+        </section>
+
+        <section id="faq" class="section">
+            <h1>Legal FAQ</h1><br>
+            <textarea placeholder="Add new FAQ"></textarea>
+            <button>Add FAQ</button>
+        </section>
+
+    </div>
+</div>
+
+<script src="Admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
