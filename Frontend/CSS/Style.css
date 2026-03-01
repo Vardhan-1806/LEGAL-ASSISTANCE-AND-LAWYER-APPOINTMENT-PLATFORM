@@ -1,1 +1,242 @@
-/* Global styling(colors,layout,fonts) */
+/* Global styling(colors;layout-lawyers,citizen,admin;fonts) */
+/* ================= GENERAL ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f2f2f2;
+    transition:.3s;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar{
+    width:230px;
+    background:#111;
+    color:white;
+    padding:20px;
+    transition:.3s;
+}
+
+.sidebar.hidden{
+    margin-left:-230px;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    padding:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.sidebar li:hover{
+    background:#343131;
+}
+
+/* ================= MAIN ================= */
+.main{
+    flex:1;
+    padding:30px;
+    overflow-x:hidden;
+}
+
+.section{ display:none; }
+.section.active{ display:block; }
+
+/* ================= TOPBAR ================= */
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+    padding:12px 20px;
+    margin-bottom:15px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.topbar .right{
+    display:flex;
+    gap:12px;
+}
+
+.datetime{
+    font-size:18px;
+    color:#555;
+}
+
+/* ================= CARDS ================= */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-left:5px solid #343131;
+    box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    border-radius:8px;
+}
+
+/* ================= TABLE ================= */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th, td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#111;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+/* ================= BUTTONS ================= */
+button{
+    background:#343131;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    cursor:pointer;
+    border-radius:6px;
+    transition:.2s;
+}
+
+button:hover{
+    background:#343131;
+}
+
+/* ================= TEXTAREA ================= */
+textarea{
+    width:100%;
+    height:80px;
+    margin-bottom:10px;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+/* ================= CALENDAR ================= */
+.calendar-controls{
+    display:flex;
+    gap:12px;
+    margin-bottom:15px;
+    flex-wrap:wrap;
+}
+
+.calendar-controls select{
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ddd;
+}
+
+.weekdays{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    margin-bottom:6px;
+}
+
+.weekdays div{
+    background:#343131;
+    color:white;
+    text-align:center;
+    padding:6px;
+    border-radius:6px;
+    font-size:13px;
+}
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+.day{
+    padding:14px 10px;
+    background:#fff;
+    text-align:center;
+    border-radius:8px;
+    transition:.25s;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    position:relative;
+}
+
+.day:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+}
+
+.low{ background:#d4edda; }
+.medium{ background:#ffeeba; }
+.high{ background:#f8d7da; }
+
+.today{
+    border:2px solid #343131;
+    font-weight:bold;
+}
+
+/* Tooltip */
+.day[data-tooltip]:hover::after{
+    content:attr(data-tooltip);
+    position:absolute;
+    bottom:110%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#343131;
+    color:white;
+    padding:4px 8px;
+    border-radius:6px;
+    font-size:12px;
+    white-space:nowrap;
+}
+
+/* ================= DARK MODE ================= */
+.dark-mode{
+    background:#343131;
+    color:white;
+}
+
+.dark-mode .topbar,
+.dark-mode .card,
+.dark-mode table{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark-mode th{ background:#000; }
+.dark-mode tr:nth-child(even){ background:#2a2a2a; }
+.dark-mode .day{ background:#2a2a2a; color:white; }
+.dark-mode .today{ border-color:white; }
