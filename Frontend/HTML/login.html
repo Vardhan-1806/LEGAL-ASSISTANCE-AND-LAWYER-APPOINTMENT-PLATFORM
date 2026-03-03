@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Legal Portal - Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+        <h2>⚖️LexAssist</h2>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Select Role</label>
+                <select id="role" required>
+                    <option value="">-- Choose Role --</option>
+                    <option value="citizen">Citizen</option>
+                    <option value="lawyer">Lawyer</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <p class="register-link">
+            Don’t have an account?
+            <a href="register.html">Register</a>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const userData = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
+
+    try{
+        const res = await fetch("http://localhost:5000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        const data = await res.json();
+
+        if(res.ok){
+
+            localStorage.setItem("token", data.token);
+
+            if(data.role === "citizen"){
+                window.location.href = "../citizen/citizen.html";
+            }
+            else if(data.role === "lawyer"){
+                window.location.href = "../lawyer/lawyer.html";
+            }
+            else{
+                window.location.href = "../admin/admin.html";
+            }
+
+        } else {
+            alert(data.message);
+        }
+
+    } catch(error){
+        alert("Server not running");
+    }
+});
+</script>
+
+</body>
+</html>
