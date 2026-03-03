@@ -1,3 +1,181 @@
 <!-- Submit legal issues
 View case status 
 Chat with bot -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>⚖️ LexAssist Citizen Portal</title>
+<link rel="stylesheet" href="../CSS/Style.css">
+</head>
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>⚖️ LexAssist</h2>
+    <ul>
+        <li onclick="showSection('dashboard')">Dashboard</li>
+        <li onclick="showSection('lawyers')">Find Lawyer</li>
+        <li onclick="showSection('cases')">My Cases</li>
+        <li onclick="showSection('timeline')">Timeline</li>
+        <li onclick="showSection('chat')">Chat</li>
+        <li onclick="showSection('documents')">Document AI</li>
+        <li onclick="showSection('profile')">Profile</li>
+        <li onclick="logout()">Logout</li>
+    </ul>
+</div>
+
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+    <h2>Welcome, Ravi Kumar 👋</h2>
+    <div class="dashboard-cards">
+        <div class="dash-card" onclick="showCases('all')">
+            <h3>4</h3><p>Total Cases</p>
+        </div>
+        <div class="dash-card upcoming" onclick="showCases('Upcoming')">
+            <h3>1</h3><p>Upcoming</p>
+        </div>
+        <div class="dash-card ongoing" onclick="showCases('Ongoing')">
+            <h3>2</h3><p>Ongoing</p>
+        </div>
+        <div class="dash-card closed" onclick="showCases('Closed')">
+            <h3>1</h3><p>Closed</p>
+        </div>
+    </div>
+</div>
+
+<!-- LAWYERS -->
+<div id="lawyers" class="section">
+<h2>Find a Lawyer</h2>
+<input type="text" id="lawyerSearch" placeholder="Search by name, specialization, or ID" onkeyup="searchLawyer()">
+
+<table id="lawyerTable">
+<tr><th>ID</th><th>Name</th><th>Specialization</th><th>Rating</th><th></th></tr>
+<tr>
+<td>L101</td><td>Rahul Sharma</td><td>Criminal</td><td>⭐⭐⭐⭐☆</td>
+<td><button onclick="bookLawyer('Rahul Sharma')">Book</button></td>
+</tr>
+<tr>
+<td>L102</td><td>Anita Rao</td><td>Property</td><td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="bookLawyer('Anita Rao')">Book</button></td>
+</tr>
+<tr>
+<td>L103</td><td>Vikram Patel</td><td>Family</td><td>⭐⭐⭐⭐☆</td>
+<td><button onclick="bookLawyer('Vikram Patel')">Book</button></td>
+</tr>
+</table>
+</div>
+
+<!-- CASES -->
+<div id="cases" class="section">
+<h2>My Cases</h2>
+<input type="text" id="caseSearch" placeholder="Search case..." onkeyup="searchCase()">
+
+<table id="caseTable">
+<tr><th>ID</th><th>Case</th><th>Lawyer</th><th>Status</th><th>Date</th><th>Place</th></tr>
+
+<tr onclick="showCaseDetails(this)">
+<td>C501</td><td>Property Dispute</td><td>Anita Rao</td>
+<td>Ongoing</td><td>12 Mar 2026</td><td>Hyderabad Court</td>
+</tr>
+
+<tr onclick="showCaseDetails(this)">
+<td>C502</td><td>Domestic Case</td><td>Vikram Patel</td>
+<td>Upcoming</td><td>20 Mar 2026</td><td>City Court</td>
+</tr>
+
+<tr onclick="showCaseDetails(this)">
+<td>C503</td><td>Theft Case</td><td>Rahul Sharma</td>
+<td>Closed</td><td>5 Feb 2026</td><td>District Court</td>
+</tr>
+
+</table>
+
+<div id="caseDetailsBox" class="summary-box" style="display:none;">
+<h3>Case Details</h3>
+<p><strong>ID:</strong> <span id="d_id"></span></p>
+<p><strong>Case:</strong> <span id="d_case"></span></p>
+<p><strong>Lawyer:</strong> <span id="d_lawyer"></span></p>
+<p><strong>Status:</strong> <span id="d_status"></span></p>
+<p><strong>Date:</strong> <span id="d_date"></span></p>
+<p><strong>Place:</strong> <span id="d_place"></span></p>
+<p><strong>Description:</strong></p>
+<p id="d_desc"></p>
+</div>
+
+</div>
+
+<!-- TIMELINE -->
+<div id="timeline" class="section">
+<h2>Case Timeline</h2>
+<div class="timeline">
+<div class="step completed"><strong>Case Filed</strong><br>02 Mar 2026 • 10:30 AM</div>
+<div class="step completed"><strong>Lawyer Assigned</strong><br>03 Mar 2026 • 02:00 PM</div>
+<div class="step active"><strong>Hearing Scheduled</strong><br>12 Mar 2026 • 11:00 AM</div>
+<div class="step"><strong>Judgment Pending</strong></div>
+</div>
+<div class="summary-box">
+<h3>Case Summary</h3>
+<p>This case involves property ownership dispute. Evidence submitted and hearing scheduled.</p>
+</div>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="section">
+<h2>Chat</h2>
+<div class="chat-box" id="chatBox">
+<div class="msg bot">Hello! How can I help you?</div>
+</div>
+<div class="chat-input">
+<input type="text" id="chatInput" placeholder="Type message">
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+
+<!-- DOCUMENT AI -->
+<div id="documents" class="section">
+<h2>📄 Legal Document AI Analyzer</h2>
+<div class="doc-box">
+<input type="file" id="docFile">
+<button onclick="analyzeDoc()">Analyze Document</button>
+</div>
+<div id="docLoading" class="doc-loading">Analyzing document...</div>
+<div id="docResultCard" class="doc-result">
+<h3>Analysis Result</h3>
+<p><strong>Document Type:</strong> <span id="docType"></span></p>
+<ul id="docPoints"></ul>
+<p id="docInsight"></p>
+<p class="doc-warning">⚠ This AI summary is for understanding only.</p>
+</div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="section">
+<div class="profile-card">
+<img src="https://wallpapers.com/images/featured/default-png-0q6opbat0cr7deg8.jpg">
+<h3>Ravi Kumar</h3>
+<p>Client ID: CL1001</p>
+<p>Email: ravi@email.com</p>
+<p>Active Cases: 2</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- BOOKING POPUP -->
+<div id="bookingAlert" class="custom-alert">
+<div class="alert-box">
+<h3>Appointment Booked ✅</h3>
+<p id="bookingMsg"></p>
+<button onclick="closeAlert()">OK</button>
+</div>
+</div>
+
+<script src="../JS/Citizen.js"></script>
+</body>
+</html>
